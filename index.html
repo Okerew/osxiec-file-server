@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Osxiec Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="https://github.com/user-attachments/assets/d45e77d8-9532-482f-b4f6-874a301f4916">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Osxiec Hub: Login, manage containers, and reset passwords.">
+    <meta name="author" content="Okerew">
+    <meta name="keywords" content="login, containers, password reset, file upload, search">
+    
+    <!-- Open Graph Meta Tags for social media sharing -->
+    <meta property="og:title" content="Osxiec Hub">
+    <meta property="og:description" content="Osxiec Hub: Login, manage containers, and reset passwords.">
+    <meta property="og:image" content="https://github.com/user-attachments/assets/d45e77d8-9532-482f-b4f6-874a301f4916">
+    <meta property="og:url" content="https://osxiec.glitch.me"> 
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Osxiec Hub">
+    <meta name="twitter:description" content="Osxiec Hub: Manage containers for osxiec">
+    <meta name="twitter:image" content="https://github.com/user-attachments/assets/d45e77d8-9532-482f-b4f6-874a301f4916"> 
+    <meta name="twitter:site" content="@OkerewWar"> 
+</head>
+<body>
+
+<div id="loginSection">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <div id="captcha"></div>
+    <input type="text" id="captchaInput" placeholder="Enter captcha" />
+    <button onclick="login()">Login</button>
+    <button onclick="register()">Register</button>
+</div>
+
+<div id="contentSection" style="display: none;">
+    <nav class="navbar">
+        <span id="loggedInUser" class="loggedInUser"></span>
+        <button onclick="logout()">Logout</button>
+      <button onclick="reset()">
+        Reset Password
+      </button>
+        <button onclick="upload()">Your Containers</button>
+        <input type="text" id="searchInput" placeholder="Search..." >
+        <button class="searchButton" onclick="searchFiles()">Search</button>
+    </nav>
+
+    <div id="searchModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="searchResult"></div>
+        </div>
+    </div>
+
+    <h3>Starred Containers <button class="refreshContainers" onclick="listStarredFiles()">Refresh Starred List</button></h3>
+    <div class="listFiles" id="starredFiles"></div>
+</div>
+<div id="uploadSection" style="display: none;">  
+    <nav class="navbar"><button onclick="closeUpload()">Home</button></nav>
+    <h3>
+     Your Password
+  </h3>
+    <input id="filePassword" type="password" placeholder="Enter password">
+    <h3>Upload container</h3>
+    <input type="file" id="fileInput" accept=".bin" />
+    <button onclick="uploadFile()">Upload</button>
+    <br>
+    <textarea id="fileDescription" placeholder="Enter container description"></textarea>
+    <div id="uploadResult"></div>
+    <h3>Your Containers  <button class="refreshContainers" onclick="listUserFiles()">Refresh Container List</button></h3>
+    <div class="listFiles" id="userFiles"></div>
+</div>
+  
+<div id="resetSection" style="display: none;">
+  <nav class="navbar"><button onclick="closeReset()">Home</button></nav>
+  <h3>
+    Reset Password
+  </h3>
+  <form id="passwordResetForm">
+    <label for="currentPassword">Current Password:</label><br>
+    <input type="password" id="currentPassword" name="currentPassword"><br><br>
+
+    <label for="newPassword">New Password:</label><br>
+    <input type="password" id="newPassword" name="newPassword"><br><br>
+
+    <label for="confirmPassword">Confirm New Password:</label><br>
+    <input type="password" id="confirmPassword" name="confirmPassword"><br><br>
+
+    <button type="button" onclick="resetPassword()">Reset Password</button>
+</form>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
