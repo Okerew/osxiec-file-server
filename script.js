@@ -127,7 +127,7 @@ async function login() {
     }
 
     try {
-        const response = await fetch('https://b9e61994-5ec3-457b-a095-cc05e2160e57-00-3ka9snrwa24rh.worf.replit.dev/login', {
+        const response = await fetch('https://osxiec-file-server-1.onrender.com/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
@@ -159,7 +159,7 @@ async function autoLogin() {
 
     if (username && password) {
         try {
-            const response = await fetch('https://b9e61994-5ec3-457b-a095-cc05e2160e57-00-3ka9snrwa24rh.worf.replit.dev/login', {
+            const response = await fetch('https://osxiec-file-server-1.onrender.com/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password }),
@@ -201,7 +201,7 @@ async function register() {
     }
 
     try {
-        const response = await fetch('https://b9e61994-5ec3-457b-a095-cc05e2160e57-00-3ka9snrwa24rh.worf.replit.dev/register', {
+        const response = await fetch('https://osxiec-file-server-1.onrender.com/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
@@ -262,10 +262,10 @@ async function uploadFile() {
     formData.append('file', file);
     formData.append('description', description);
     formData.append('username', currentUser);
-    formData.append('password', password);
+    formData.append('password', password); // Add this line
 
     try {
-        const response = await fetch('https://b9e61994-5ec3-457b-a095-cc05e2160e57-00-3ka9snrwa24rh.worf.replit.dev/upload', {
+        const response = await fetch('https://osxiec-file-server-1.onrender.com/upload', {
             method: 'POST',
             body: formData
         });
@@ -286,7 +286,7 @@ async function uploadFile() {
 async function searchFiles() {
     const searchTerm = document.getElementById('searchInput').value;
     try {
-        const response = await fetch(`https://b9e61994-5ec3-457b-a095-cc05e2160e57-00-3ka9snrwa24rh.worf.replit.dev/search?term=${encodeURIComponent(searchTerm)}&username=${encodeURIComponent(currentUser)}`);
+        const response = await fetch(`https://osxiec-file-server-1.onrender.com/search?term=${encodeURIComponent(searchTerm)}&username=${encodeURIComponent(currentUser)}`);
         if (response.ok) {
             const results = await response.json();
             let htmlResult = '<ul>';
@@ -316,7 +316,7 @@ async function searchFiles() {
 
 async function listUserFiles() {
     try {
-        const response = await fetch(`https://b9e61994-5ec3-457b-a095-cc05e2160e57-00-3ka9snrwa24rh.worf.replit.dev/user-files?username=${encodeURIComponent(currentUser)}&currentUser=${encodeURIComponent(currentUser)}`);
+        const response = await fetch(`https://osxiec-file-server-1.onrender.com/user-files?username=${encodeURIComponent(currentUser)}&currentUser=${encodeURIComponent(currentUser)}`);
         if (response.ok) {
             const files = await response.json();
             let htmlResult = '<ul>';
@@ -353,7 +353,7 @@ async function removeFile(fileName) {
     }
 
     try {
-        const response = await fetch('https://b9e61994-5ec3-457b-a095-cc05e2160e57-00-3ka9snrwa24rh.worf.replit.dev/remove', {
+        const response = await fetch('https://osxiec-file-server-1.onrender.com/remove', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -415,7 +415,7 @@ searchInput.addEventListener('keydown', (event) => {
 
 async function toggleStar(filename, action) {
     try {
-        const response = await fetch('https://b9e61994-5ec3-457b-a095-cc05e2160e57-00-3ka9snrwa24rh.worf.replit.dev/star', {
+        const response = await fetch('https://osxiec-file-server-1.onrender.com/star', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: currentUser, filename, action }),
@@ -439,7 +439,7 @@ async function toggleStar(filename, action) {
 
 async function listStarredFiles() {
     try {
-        const response = await fetch(`https://b9e61994-5ec3-457b-a095-cc05e2160e57-00-3ka9snrwa24rh.worf.replit.dev/starred-files?username=${encodeURIComponent(currentUser)}`);
+        const response = await fetch(`https://osxiec-file-server-1.onrender.com/starred-files?username=${encodeURIComponent(currentUser)}`);
         if (response.ok) {
             const files = await response.json();
             let htmlResult = '<h3>Starred Files</h3><ul>';
@@ -467,9 +467,9 @@ async function resetPassword() {
     const currentPassword = document.getElementById('currentPassword').value;
     const newPassword = document.getElementById('newPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
-    const username = currentUser; 
+    const username = currentUser; // Assuming currentUser is globally accessible
 
-
+    // Basic client-side validation
     if (!currentPassword || !newPassword || !confirmPassword) {
         alert('Please fill in all fields');
         return;
@@ -481,7 +481,7 @@ async function resetPassword() {
     }
 
     try {
-        const response = await fetch('https://b9e61994-5ec3-457b-a095-cc05e2160e57-00-3ka9snrwa24rh.worf.replit.dev/reset', {
+        const response = await fetch('https://osxiec-file-server-1.onrender.com/reset', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -489,13 +489,13 @@ async function resetPassword() {
             body: JSON.stringify({
                 username: username,
                 current_password: currentPassword,
-                new_password: newPassword 
+                new_password: newPassword // Send the new password
             })
         });
 
         if (response.ok) {
             alert('Password reset successful');
-            document.getElementById('passwordResetForm').reset(); 
+            document.getElementById('passwordResetForm').reset(); // Reset form fields
         } else {
             const errorMessage = await response.text();
             alert('Password reset failed: ' + errorMessage);
