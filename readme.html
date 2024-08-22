@@ -1,0 +1,428 @@
+<head>
+  <style>
+    body{
+    background-color: lightgray;
+}
+
+  </style>
+  <title>
+    About osxiec
+  </title>
+</head>
+<body>
+  <a href="https://osxiec.glitch.me">Go to main page</a>
+<h1 id="osxiec">Osxiec</h1>
+<p>OSXIEC is a native docker-like solution for macOS developed by Okerew. It leverages native macOS features to provide containerization capabilities, albeit with some limitations compared to Docker.</p>
+<p><a href="https://youtu.be/CkJT0STyIZE" target="_blank">
+ <img src="https://github.com/user-attachments/assets/d45e77d8-9532-482f-b4f6-874a301f4916" alt="Watch the video" />
+</a>
+If it says that macOS can&#39;t identify if it is malware or not, close it go into settings and allow it to be executed.</p>
+<hr>
+<h2 id="dependencies">Dependencies</h2>
+<p><strong>HomeBrew for installing dependencies</strong></p>
+<pre><code class="lang-sh">/<span class="hljs-keyword">bin/bash </span>-c <span class="hljs-string">"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</span>
+</code></pre>
+<p><strong>Curl</strong></p>
+<pre><code class="lang-sh"><span class="hljs-keyword">brew </span><span class="hljs-keyword">install </span>curl
+</code></pre>
+<p><strong>Readline</strong></p>
+<pre><code class="lang-sh"><span class="hljs-keyword">brew </span><span class="hljs-keyword">install </span>readline
+</code></pre>
+<p><strong>Json-c</strong></p>
+<pre><code class="lang-sh"><span class="hljs-selector-tag">brew</span> <span class="hljs-selector-tag">install</span> <span class="hljs-selector-tag">json-c</span>@<span class="hljs-keyword">0</span>.<span class="hljs-keyword">17</span>
+</code></pre>
+<h3 id="build-dependencies">Build Dependencies</h3>
+<p><strong>Ninja for building</strong></p>
+<pre><code class="lang-sh"><span class="hljs-keyword">brew </span><span class="hljs-keyword">install </span>ninja
+</code></pre>
+<p><strong>Cmake for building</strong></p>
+<pre><code class="lang-sh"><span class="hljs-keyword">brew </span><span class="hljs-keyword">install </span>cmake
+</code></pre>
+<p><strong>Xcode</strong>
+<a href="https://apps.apple.com/us/app/xcode/id497799835?mt=12">https://apps.apple.com/us/app/xcode/id497799835?mt=12</a></p>
+<h2 id="installation">Installation</h2>
+<ol>
+<li><p><strong>Download the Release</strong>:
+Download the <code>osxiec_cli.tar.gz</code> and <code>osxiec_gui.tar.gz</code> if you want a gui app file from the releases section.</p>
+</li>
+<li><p><strong>Extract the Archive</strong>:</p>
+<pre><code class="lang-sh">tar -xvzf osxiec_cli<span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span>
+</code></pre>
+<p>For gui version</p>
+<pre><code class="lang-sh">tar -xvzf osxiec_gui<span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span>
+</code></pre>
+</li>
+<li><p><strong>Run installation script in the extracted cli directory</strong>:</p>
+<pre><code class="lang-sh">sudo <span class="hljs-keyword">sh</span> install.<span class="hljs-keyword">sh</span>
+</code></pre>
+</li>
+<li><strong>If downloaded osxiec_gui</strong><pre><code>Copy app bundle <span class="hljs-keyword">from</span> osxiec_gui.tar.gz <span class="hljs-keyword">to</span> /Applications <span class="hljs-keyword">then</span> <span class="hljs-built_in">run</span> <span class="hljs-keyword">the</span> app bundle <span class="hljs-keyword">or</span> <span class="hljs-built_in">run</span> osxiec.jar
+</code></pre></li>
+</ol>
+<p>To update to a new release, repeat steps 1, 2, and 3 if using osxiec_gui also step 4.</p>
+<h2 id="usage">Usage</h2>
+<p><strong>Containerize a Directory</strong>: containerizes a directory</p>
+<pre><code class="lang-sh"><span class="xml">sudo osxiec -contain </span><span class="hljs-template-variable">{directory_path}</span><span class="xml"> </span><span class="hljs-template-variable">{some_name}</span><span class="xml">.bin </span><span class="hljs-template-variable">{path_to_config_file_in_directory_path}</span><span class="xml"> </span><span class="hljs-template-variable">{container_config_file}</span><span class="xml"></span>
+</code></pre>
+<p><strong>Execute a Container</strong>: executes container</p>
+<pre><code class="lang-sh">sudo osxiec -<span class="hljs-built_in">execute</span> {some_name}.bin
+</code></pre>
+<p><strong>Execute with Port Argument</strong>: execute with port</p>
+<pre><code class="lang-sh">sudo osxiec -<span class="hljs-class">execute </span>{some_name} -<span class="hljs-class">port </span>{PORT_NUMBER}
+</code></pre>
+<p><strong>Create a cluster ( virtualized network )</strong> create a cluster</p>
+<pre><code class="lang-sh"><span class="xml">sudo osxiec -network create </span><span class="hljs-template-variable">{network_name}</span><span class="xml"> </span><span class="hljs-template-variable">{vlan_id}</span><span class="xml"></span>
+</code></pre>
+<p><strong>Remove a vlan network</strong> removes a vlan network</p>
+<pre><code class="lang-sh"><span class="xml">sudo osxiec -network remove </span><span class="hljs-template-variable">{network_name}</span><span class="xml"> </span><span class="hljs-template-variable">{vlan_id}</span><span class="xml"></span>
+</code></pre>
+<p><strong>Run with vlan config</strong> run with vlan config</p>
+<pre><code class="lang-sh"><span class="xml">sudo osxiec -run </span><span class="hljs-template-variable">{some_name}</span><span class="xml"> </span><span class="hljs-template-variable">{network_name}</span><span class="xml"> -port </span><span class="hljs-template-variable">{PORT_NUMBER}</span><span class="xml"></span>
+</code></pre>
+<p><strong>Version</strong> checks the current version</p>
+<pre><code class="lang-sh">osxiec <span class="hljs-comment">--version</span>
+</code></pre>
+<p><strong>Pull</strong> pulls an image from osxiec hub</p>
+<pre><code class="lang-sh">osxiec -<span class="hljs-class">pull </span>{container_name}
+</code></pre>
+<p><strong>Search</strong> searches osxiec hub</p>
+<pre><code class="lang-sh">osxiec -<span class="hljs-class">search </span>{search_term_for_osxiec_hub}
+</code></pre>
+<p><strong>Upload</strong> allows to upload a file to osxiec hub</p>
+<pre><code class="lang-sh"><span class="xml">osxiec -upload </span><span class="hljs-template-variable">{filename}</span><span class="xml"> </span><span class="hljs-template-variable">{username}</span><span class="xml"> </span><span class="hljs-template-variable">{password}</span><span class="xml"> </span><span class="hljs-template-variable">{description}</span><span class="xml"></span>
+</code></pre>
+<p><strong>Convert to Docker</strong> converts to docker</p>
+<pre><code class="lang-sh"><span class="xml">osxiec -convert-to-docker </span><span class="hljs-template-variable">{bin_file}</span><span class="xml"> </span><span class="hljs-template-variable">{output_directory}</span><span class="xml"> </span><span class="hljs-template-variable">{base_image}</span><span class="xml"> [custom_dockerfile]</span>
+</code></pre>
+<p><strong>Clean</strong> this will clean the container volume images from /tmp</p>
+<pre><code class="lang-sh"><span class="hljs-attribute">sudo osxiec -clean</span>
+</code></pre>
+<p><strong>Detach</strong> detaches the container images</p>
+<pre><code class="lang-sh">osxiec -<span class="hljs-built_in">detach</span>
+</code></pre>
+<p><strong>Help</strong> shows all the commands</p>
+<pre><code class="lang-sh">osxiec -<span class="hljs-built_in">help</span>
+</code></pre>
+<p><strong>Deploy</strong> deploys a container</p>
+<pre><code class="lang-sh">sudo osxiec -<span class="hljs-class">deploy </span>{path_to_config} -<span class="hljs-class">port </span>{PORT_NUMBER}
+</code></pre>
+<p><strong>Scan</strong> scans a container for security vulnerabilities</p>
+<pre><code class="lang-sh">osxiec -<span class="hljs-class">scan </span>{some_name.bin}
+</code></pre>
+<p><strong>Deploym</strong> deploys multiple containers, this is a work in progress, for now it works mostly fine with start config</p>
+<pre><code class="lang-sh">sudo osxiec -<span class="hljs-class">deploym </span>{config_file}
+</code></pre>
+<p><strong>Oexec</strong> executes a container in offline mode without any networking or usage of ports</p>
+<pre><code class="lang-sh">sudo osxiec -<span class="hljs-class">oexec </span>{bin_file_path}
+</code></pre>
+<p><strong>Extract</strong> extracts files and folders from a container</p>
+<pre><code class="lang-sh">sudo osxiec -<span class="hljs-class">extract </span>{bin_file_path}
+</code></pre>
+<p><strong>Convert to oci</strong> converts to an oci container</p>
+<pre><code class="lang-sh"><span class="xml">osxiec -convert-to-oci </span><span class="hljs-template-variable">{bin_file_path}</span><span class="xml"> </span><span class="hljs-template-variable">{output_path}</span><span class="xml"> </span><span class="hljs-template-variable">{arch}</span><span class="xml"> </span><span class="hljs-template-variable">{author}</span><span class="xml"></span>
+</code></pre>
+<p><strong>Craft</strong> crafts a container from a directory and a bin input file</p>
+<pre><code class="lang-sh"><span class="xml">sudo osxiec -craft </span><span class="hljs-template-variable">{directory_path}</span><span class="xml"> </span><span class="hljs-template-variable">{bin_input_file}</span><span class="xml"> </span><span class="hljs-template-variable">{output_file}</span><span class="xml"> </span><span class="hljs-template-variable">{start_config_file}</span><span class="xml"> </span><span class="hljs-template-variable">{container_config_file}</span><span class="xml"></span>
+</code></pre>
+<h2 id="creating-a-container">Creating a container</h2>
+<p>Make sure to include any dependencies or executables you can obtain these by searching for where a dependency or executable is located and copying it along with it&#39;s dependencies.</p>
+<p><strong>Example structure</strong></p>
+<pre><code>[
+    <span class="hljs-string">"container_name"</span>,
+    {
+        <span class="hljs-string">"some_content"</span>,
+        <span class="hljs-string">"subfolder1"</span> [
+           executable1
+           <span class="hljs-string">"some_content"</span>
+         ]
+        <span class="hljs-string">"start_config_file"</span>
+        <span class="hljs-string">"some_executable"</span>
+        <span class="hljs-string">"dependency"</span>
+    }    
+
+]
+</code></pre><p><br></p>
+<p><strong>Script Example:</strong>
+For example if you have a node project make sure to include somewhere the node executable in the directory you want to contain, then run the script with the node executable.</p>
+<pre><code class="lang-js">console.<span class="hljs-built_in">log</span>(<span class="hljs-string">"Hello World"</span>)
+</code></pre>
+<p>Do <code>path/to/node_executable_in_container/ script.js</code></p>
+<p><br></p>
+<p><strong>Containing</strong></p>
+<p>To contain a directory run the <code>osxiec -contain {directory_path} {container_name} {start_config_file}</code></p>
+<p>This will also scan the container for security vulnerabilities.</p>
+<h2 id="executing-a-container">Executing a container</h2>
+<p>After creating a container or downloading one.
+<strong>You can execute one with</strong></p>
+<p><code>osxiec -execute {container_name}</code></p>
+<p>If you want you can also use a custom port with <code>-port {PORT_NUMBER}</code></p>
+<p><strong>Run with vlan</strong></p>
+<p>If you have created a vlan network like said in the next point you can run the container with</p>
+<p><code>osxiec -run {container_name} {network_name}</code></p>
+<p>You can also add the port argument with <code>-port {PORT_NUMBER}</code></p>
+<p><strong>When executing</strong>
+<br>
+Normally it will start a listener which will allow it to communicate with other containers.
+  
+<img src="https://github.com/user-attachments/assets/50d308ce-60bc-4355-a60d-a05430cea2df" alt="Screenshot 2024-07-24 at 18 11 30"></p>
+  <br>
+<p>If you want to access the container terminal just press enter.
+<img src="https://github.com/user-attachments/assets/32762bb2-0eb0-492e-9d04-1fcf1b8b80f8" alt="Screenshot 2024-07-24 at 18 11 45">
+  </p>
+  <br>
+<h2 id="container-commands">Container commands</h2>
+<ol>
+<li><strong>help</strong> shows all the commands</li>
+<li><strong>debug</strong> debugs the container</li>
+<li><strong>scale</strong> scales the resources of the container</li>
+<li><strong>osxs</strong> Execute an osxs script file</li>
+<li><strong>xs</strong> Execute an osxs script command</li>
+<li><strong>autoscale</strong> automatically scales the resources of the container</li>
+<li><strong>status</strong> shows the status of the container
+</ol>
+<h2 id="creating-a-vlan-network">Creating a vlan network</h2>
+To create a network you can run <code>osxiec -network create {network_name} {vlan_id}</code></li>
+
+<p>The network_name can be any string like &quot;test&quot; for example.</p>
+<p>The vlan id can be any number from 1-4094.</p>
+<p>For example <code>osxiec -network create test 6</code></p>
+<h2 id="converting-to-docker">Converting to Docker</h2>
+<p><strong>Create docker file</strong></p>
+<pre><code class="lang-dockerfile"><span class="hljs-comment"># Test Dockerfile for osxiec to Docker conversion</span>
+
+<span class="hljs-comment"># Use a lightweight base image</span>
+<span class="hljs-keyword">FROM</span> alpine:latest
+
+<span class="hljs-comment"># Set the working directory in the container</span>
+<span class="hljs-keyword">WORKDIR</span><span class="bash"> /app
+</span>
+<span class="hljs-comment"># Copy the application files from the osxiec container</span>
+<span class="hljs-comment"># <span class="hljs-doctag">Note:</span> This will be handled by the conversion script, so we don't need COPY instructions here</span>
+
+<span class="hljs-comment"># Install any needed packages</span>
+<span class="hljs-keyword">RUN</span><span class="bash"> apk add --no-cache python3 py3-pip
+</span>
+<span class="hljs-comment"># Set environment variables (these will be overwritten by the conversion script if not using a custom Dockerfile)</span>
+<span class="hljs-keyword">ENV</span> MEMORY_SOFT_LIMIT=<span class="hljs-number">256</span>m
+<span class="hljs-keyword">ENV</span> MEMORY_HARD_LIMIT=<span class="hljs-number">512</span>m
+<span class="hljs-keyword">ENV</span> CPU_PRIORITY=<span class="hljs-number">20</span>
+
+<span class="hljs-comment"># Make port 8080 available to the world outside this container</span>
+<span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">8080</span>
+
+<span class="hljs-comment"># Run a simple Python HTTP server when the container launches</span>
+<span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">"python3"</span>, <span class="hljs-string">"-m"</span>, <span class="hljs-string">"http.server"</span>, <span class="hljs-string">"8080"</span>]</span>
+</code></pre>
+<p><strong>Run convert-to-docker</strong></p>
+<p>For this example</p>
+<pre><code class="lang-sh"><span class="xml">osxiec -convert-to-docker </span><span class="hljs-template-variable">{container_name}</span><span class="xml"> </span><span class="hljs-template-variable">{output_directory}</span><span class="xml"> alpine:latest samples/dockerfile</span>
+</code></pre>
+<h2 id="deploying">Deploying</h2>
+<p><strong>Create a config file</strong></p>
+<pre><code><span class="hljs-attr">source_dir</span>=/path/to/source/directory
+<span class="hljs-attr">container_file</span>=/path/to/output/container.bin
+<span class="hljs-attr">network_name</span>=my_network
+<span class="hljs-attr">start_config</span>=/path/to/start_config.sh
+</code></pre><p><strong>Deploy</strong></p>
+<pre><code class="lang-sh">sudo osxiec -<span class="hljs-class">deploy </span>{path_to_config_file}
+</code></pre>
+<p>You can also use <code>-port {PORT_NUMBER}</code></p>
+<p><strong>Deploym</strong>
+you can also deploy multiple containers, this is a work in progress though.</p>
+<pre><code class="lang-sh"><span class="xml">sudo osxiec -deploym </span><span class="hljs-template-variable">{config_file}</span><span class="xml"> </span><span class="hljs-template-variable">{PORT_NUMBER1}</span><span class="xml"> </span><span class="hljs-template-variable">{PORT_NUMBER2}</span><span class="xml"> etc.</span>
+</code></pre>
+<p><strong>Config</strong></p>
+<pre><code><span class="hljs-class">path_to_container1_config </span>{network_name}
+<span class="hljs-class">path_to_container2_config </span>{network_name}
+</code></pre><h2 id="osxiec-script">Osxiec Script</h2>
+<p>Osxiec script is a scripting language created for managing osxiec containers.</p>
+<h3 id="syntax">Syntax</h3>
+<p><strong>Set Memory</strong></p>
+<pre><code class="lang-sh"><span class="xml">SET_MEMORY </span><span class="hljs-template-variable">{memory_soft}</span><span class="xml"> </span><span class="hljs-template-variable">{memory_hard}</span><span class="xml"></span>
+</code></pre>
+<p><strong>Set CPU Priority</strong></p>
+<pre><code class="lang-sh"><span class="hljs-class">SET_CPU </span>{cpu_priority}
+</code></pre>
+<p><strong>Execute</strong></p>
+<pre><code class="lang-sh"><span class="hljs-keyword">EXECUTE</span> {<span class="hljs-literal">command</span>}
+</code></pre>
+<p><strong>Conditional Execution</strong></p>
+<pre><code class="lang-sh"><span class="hljs-keyword">IF</span> {condition} <span class="hljs-keyword">EXECUTE</span> {<span class="hljs-literal">command</span>}
+</code></pre>
+<p><strong>Sleep</strong></p>
+<pre><code class="lang-sh"><span class="hljs-built_in">SLEEP</span> {seconds}
+</code></pre>
+<p><strong>Log</strong></p>
+<pre><code class="lang-sh"><span class="hljs-keyword">LOG</span> {<span class="hljs-literal">message</span>}
+</code></pre>
+<p><strong>Execute File</strong></p>
+<pre><code class="lang-sh"><span class="hljs-class">EXECUTE_FILE </span>{path_to_script}
+</code></pre>
+<p><strong>Set Variable</strong></p>
+<pre><code class="lang-sh"><span class="hljs-keyword">SET</span> {<span class="hljs-keyword">variable</span>} {<span class="hljs-keyword">value</span>}
+</code></pre>
+<p><strong>While Loop</strong></p>
+<pre><code class="lang-sh"><span class="hljs-keyword">WHILE</span> {condition} {commands} <span class="hljs-keyword">END</span>
+</code></pre>
+<p><strong>For Loop</strong></p>
+<pre><code class="lang-sh"><span class="xml">FOR </span><span class="hljs-template-variable">{variable}</span><span class="xml"> TO </span><span class="hljs-template-variable">{2variable}</span><span class="xml"> STEP </span><span class="hljs-template-variable">{value}</span><span class="xml"> </span><span class="hljs-template-variable">{commands}</span><span class="xml"> END</span>
+</code></pre>
+<p><strong>ELSE</strong></p>
+<pre><code class="lang-sh"><span class="hljs-keyword">IF</span> {condition} <span class="hljs-keyword">ELSE</span> {commands} <span class="hljs-keyword">END</span>
+</code></pre>
+<p>Note ELSE statement for now doesn&#39;t work with LOG and is a work in progress</p>
+<p><strong>Example</strong></p>
+<pre><code><span class="hljs-meta"># This is an example script for the OSXIEC scripting language</span>
+SET counter <span class="hljs-number">0</span>
+SET limit <span class="hljs-number">10</span>
+
+<span class="hljs-meta"># Loop from 0 to 10</span>
+<span class="hljs-keyword">FOR</span> counter=<span class="hljs-number">0</span> <span class="hljs-keyword">TO</span> limit <span class="hljs-keyword">STEP</span> <span class="hljs-number">2</span>
+    <span class="hljs-keyword">IF</span> counter==<span class="hljs-number">5</span>
+        <span class="hljs-built_in">LOG</span> <span class="hljs-string">"Counter is 5"</span>
+    END
+    <span class="hljs-built_in">SLEEP</span> <span class="hljs-number">1</span>
+END
+
+<span class="hljs-keyword">IF</span> $var==<span class="hljs-number">5</span> <span class="hljs-built_in">LOG</span> Variable is <span class="hljs-number">5</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-built_in">LOG</span> Variable is <span class="hljs-literal">not</span> <span class="hljs-number">5</span>
+
+<span class="hljs-meta"># Loop while counter is less than limit</span>
+<span class="hljs-keyword">WHILE</span> counter&lt;limit
+    <span class="hljs-keyword">IF</span> counter==<span class="hljs-number">5</span>
+        <span class="hljs-built_in">LOG</span> <span class="hljs-string">"Counter is 5"</span>
+    END
+    SET counter $(($counter + <span class="hljs-number">1</span>))
+    <span class="hljs-built_in">SLEEP</span> <span class="hljs-number">1</span>
+END
+
+<span class="hljs-meta"># Log the start of the script</span>
+<span class="hljs-built_in">LOG</span> Starting script <span class="hljs-keyword">for</span> $container_name
+
+<span class="hljs-meta"># Set container memory limits</span>
+SET_MEMORY $mem_soft $mem_hard
+
+<span class="hljs-meta"># Set CPU priority</span>
+SET_CPU $cpu_priority
+
+<span class="hljs-meta"># Execute a command</span>
+<span class="hljs-built_in">EXECUTE</span> echo <span class="hljs-string">"Container $container_name initialized"</span>
+
+<span class="hljs-meta"># Conditional execution</span>
+SET status running
+<span class="hljs-keyword">IF</span> status==running <span class="hljs-built_in">EXECUTE</span> echo <span class="hljs-string">"Container is operational"</span>
+
+<span class="hljs-meta"># Sleep for 2 seconds</span>
+<span class="hljs-built_in">SLEEP</span> <span class="hljs-number">2</span>
+
+<span class="hljs-meta"># Echo some information</span>
+ECHO Container $container_name is configured <span class="hljs-keyword">with</span>:
+ECHO - Memory limits: $mem_soft MB (soft) / $mem_hard MB (hard)
+ECHO - CPU priority: $cpu_priority
+</code></pre><h2 id="debugging">Debugging</h2>
+<p>When in a container, you can use the following commands to debug the container.
+<br>
+To start debugging <code>debug</code>
+<br>
+Then you can use these commands</p>
+<hr>
+<pre><code><span class="hljs-built_in">step</span>
+</code></pre><p>which steps to the next command</p>
+<hr>
+<pre><code><span class="hljs-built_in">break</span> &lt;<span class="hljs-built_in">command</span>&gt;
+</code></pre><p>Creates a breakpoint at the specified command</p>
+<hr>
+<pre><code><span class="hljs-built_in">print</span> &lt;<span class="hljs-keyword">var</span>&gt;
+</code></pre><p>Prints the value of the specified variable of the container</p>
+<hr>
+<pre><code><span class="hljs-built_in">print</span>
+</code></pre><p>Prints the whole container state</p>
+<hr>
+<pre><code><span class="hljs-built_in">help</span>
+</code></pre><p>Shows what you can do</p>
+<hr>
+<pre><code><span class="hljs-keyword">continue</span>
+</code></pre><p>Continues execution of the container</p>
+<hr>
+<h3 id="-a-href-https-osxiec-glitch-me-osxiec-container-hub-a-"><a href="https://osxiec.glitch.me">Osxiec Container Hub</a></h3>
+<p>This is a place where you can upload your containers to.
+<img src="https://github.com/user-attachments/assets/451f7851-ac64-4d59-9654-6729906fd01d" alt="Screenshot 2024-07-24 at 18 25 20"></p>
+<hr>
+<h3 id="-a-href-https-github-com-okerew-osxiec_gui-osxiec-gui-a-">
+
+  <a href="https://github.com/Okerew/osxiec_gui">Osxiec Gui</a></h3>
+
+<p>This is the source code for the gui version of osxiec.
+  <br>
+<img src="https://github.com/user-attachments/assets/42d858e1-e4fd-4a82-b2e8-f86a7c35be38" alt="Screenshot 2024-07-24 at 12 05 58"></p>
+<hr>
+<h3 id="-a-href-https-github-com-okerew-osxiec_terminal-git-osxiec-terminal-a-"><a href="https://github.com/Okerew/osxiec_terminal.git">Osxiec Terminal</a></h3>
+<p>A terminal emulator specifically created for osxiec</p>
+<hr>
+<h2 id="building">Building</h2>
+<p><strong>Git clone the repository</strong></p>
+<pre><code class="lang-sh">git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/Okerew/osxiec.git
+</code></pre>
+<p><strong>Go to the directory</strong></p>
+<pre><code class="lang-sh"><span class="hljs-built_in">cd</span> osxiec
+</code></pre>
+<p><strong>Build the osxiec executable</strong></p>
+<pre><code class="lang-sh"><span class="hljs-keyword">mkdir</span> {build-<span class="hljs-literal">directory</span>}
+<span class="hljs-keyword">cd</span> {build-<span class="hljs-literal">directory</span>}
+<span class="hljs-keyword">cmake</span> -S .. -B . -G <span class="hljs-string">"Ninja"</span>
+ninja
+</code></pre>
+<p><strong>Give permissions to scripts if needed</strong></p>
+<pre><code class="lang-sh">sudo <span class="hljs-keyword">chmod</span> +<span class="hljs-keyword">x</span> scripts/osxiec_deploy_multiple.sh
+sudo <span class="hljs-keyword">chmod</span> +<span class="hljs-keyword">x</span> scripts/install.sh
+</code></pre>
+<p><strong>Finalize</strong>
+to make it work put all executables in a one folder, copy there install.sh and run it</p>
+<h3 id="build-java-gui">Build java gui</h3>
+<p>Git clone the gui</p>
+<pre><code class="lang-sh">git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/Okerew/osxiec_gui.git
+</code></pre>
+<p>Go to the directory</p>
+<pre><code class="lang-sh"><span class="hljs-built_in">cd</span> osxiec_gui
+</code></pre>
+<p>Build the class</p>
+<pre><code class="lang-sh"><span class="hljs-selector-tag">javac</span> <span class="hljs-selector-tag">OsxiecApp</span><span class="hljs-selector-class">.java</span>
+</code></pre>
+<p>Build the jar</p>
+<pre><code class="lang-sh"><span class="hljs-selector-tag">jar</span> <span class="hljs-selector-tag">-cvfe</span> <span class="hljs-selector-tag">osxiec</span><span class="hljs-selector-class">.jar</span> <span class="hljs-selector-tag">OsxiecApp</span> <span class="hljs-selector-tag">OsxiecApp</span><span class="hljs-selector-class">.class</span>
+</code></pre>
+<p>Copy jar into app bundle, remove the previous one</p>
+<pre><code class="lang-sh">cp osxiec<span class="hljs-selector-class">.jar</span> osxiec.app/Contents/Resources
+</code></pre>
+<p>If using the one from release, delete the previous one</p>
+<p>Copy the icon into Contents/Resources</p>
+<p>Finally, copy the run_app_bundle.sh into the bundle as osxiec_gui</p>
+<pre><code class="lang-sh">cp run_app_bundle.<span class="hljs-keyword">sh</span> osxiec.<span class="hljs-keyword">app</span>/Contents/MacOS/osxiec_gui
+</code></pre>
+<h2 id="plugins">Plugins</h2>
+<p><strong>Example plugin</strong> can be seen in samples/sample_plugin.c, this should make you understand how osxiec loads plugins.</p>
+<p><strong>Build plugin</strong></p>
+<pre><code class="lang-sh">gcc -shared -fPIC -<span class="hljs-class">o </span>{plugin_name}.<span class="hljs-class">so </span>{plugin_name}.c
+</code></pre>
+<p><strong>Install plugin</strong></p>
+<pre><code class="lang-sh">sudo cp {plugin_name}<span class="hljs-selector-class">.so</span>  ~/.osxiec/plugins
+</code></pre>
+<p>After this on the execution of osxiec command the plugin will be loaded.</p>
+<h2 id="notes">Notes</h2>
+<ul>
+<li><strong>Not a Docker Replacement</strong>:
+While OSXIEC offers similar functionality to Docker, it lacks some advanced features of Docker. It is more supposed to be a quicker testing tool than docker on macOS, it is not designed to replace it, just to test basic ideas and software, distribute macOS software.</li>
+<li><strong>macOS Only</strong>:
+OSXIEC uses native macOS features and is not compatible with other operating systems.</li>
+<li><strong>Isolation Limitations</strong>:
+Due to macOS limitations, complete isolation like in Linux is not possible. The contained directory will have some access to the outside environment, you can have a start config file if needed.</li>
+<li><strong>Supported Features</strong>:
+Despite its limitations, OSXIEC provides isolation using namespaces, setuid, image layers, basic user process control, memory and CPU control, and special permissions using user IDs and group IDs, unpacking the image into a disk image(APFS), vlans.</li>
+<li><strong>Support</strong>: Remember that not everything will work fully for example node won&#39;t work fully because it is making sys calls which spawn things outside the container, in this example local things that do not rely on the repl server will work.</li>
+<li><strong>Temps</strong>: If you need a lot of storage for the moment, and you used a container use the clean command.</li>
+<li><strong>Why is chroot not used?</strong>
+Chroot requires for SIP to be disabled, which causes many security risks, chroot can be easily exited by any process, using the normal macOS restrictions is way more secure, reliable,
+having it disabled causes many permission issues.</li>
+<li><strong>Sandbox deprecation error</strong> yes I know that sandbox innit is deprecated but there isn&#39;t really an alternative for it unless I would use xcode and there is no way I am using it to rebuild this.</li>
+</ul>
+<hr>
+</body>
