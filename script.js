@@ -127,7 +127,7 @@ async function login() {
     }
 
     try {
-        const response = await fetch('https://osxiec-file-server-1.onrender.com/login', {
+        const response = await fetch('https://bristle-sideways-blob.glitch.me/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
@@ -159,7 +159,7 @@ async function autoLogin() {
 
     if (username && password) {
         try {
-            const response = await fetch('https://osxiec-file-server-1.onrender.com/login', {
+            const response = await fetch('https://bristle-sideways-blob.glitch.me/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password }),
@@ -201,7 +201,7 @@ async function register() {
     }
 
     try {
-        const response = await fetch('https://osxiec-file-server-1.onrender.com/register', {
+        const response = await fetch('https://bristle-sideways-blob.glitch.me/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
@@ -265,7 +265,7 @@ async function uploadFile() {
     formData.append('password', password); // Add this line
 
     try {
-        const response = await fetch('https://osxiec-file-server-1.onrender.com/upload', {
+        const response = await fetch('https://bristle-sideways-blob.glitch.me/upload', {
             method: 'POST',
             body: formData
         });
@@ -286,7 +286,7 @@ async function uploadFile() {
 async function searchFiles() {
     const searchTerm = document.getElementById('searchInput').value;
     try {
-        const response = await fetch(`https://osxiec-file-server-1.onrender.com/search?term=${encodeURIComponent(searchTerm)}&username=${encodeURIComponent(currentUser)}`);
+        const response = await fetch(`https://bristle-sideways-blob.glitch.me/search?term=${encodeURIComponent(searchTerm)}&username=${encodeURIComponent(currentUser)}`);
         if (response.ok) {
             const results = await response.json();
             let htmlResult = '<ul>';
@@ -316,7 +316,7 @@ async function searchFiles() {
 
 async function listUserFiles() {
     try {
-        const response = await fetch(`https://osxiec-file-server-1.onrender.com/user-files?username=${encodeURIComponent(currentUser)}&currentUser=${encodeURIComponent(currentUser)}`);
+        const response = await fetch(`https://bristle-sideways-blob.glitch.me/user-files?username=${encodeURIComponent(currentUser)}&currentUser=${encodeURIComponent(currentUser)}`);
         if (response.ok) {
             const files = await response.json();
             let htmlResult = '<ul>';
@@ -353,7 +353,7 @@ async function removeFile(fileName) {
     }
 
     try {
-        const response = await fetch('https://osxiec-file-server-1.onrender.com/remove', {
+        const response = await fetch('https://bristle-sideways-blob.glitch.me/remove', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -415,7 +415,7 @@ searchInput.addEventListener('keydown', (event) => {
 
 async function toggleStar(filename, action) {
     try {
-        const response = await fetch('https://osxiec-file-server-1.onrender.com/star', {
+        const response = await fetch('https://bristle-sideways-blob.glitch.me/star', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: currentUser, filename, action }),
@@ -439,7 +439,7 @@ async function toggleStar(filename, action) {
 
 async function listStarredFiles() {
     try {
-        const response = await fetch(`https://osxiec-file-server-1.onrender.com/starred-files?username=${encodeURIComponent(currentUser)}`);
+        const response = await fetch(`https://bristle-sideways-blob.glitch.me/starred-files?username=${encodeURIComponent(currentUser)}`);
         if (response.ok) {
             const files = await response.json();
             let htmlResult = '<h3>Starred Files</h3><ul>';
@@ -481,7 +481,7 @@ async function resetPassword() {
     }
 
     try {
-        const response = await fetch('https://osxiec-file-server-1.onrender.com/reset', {
+        const response = await fetch('https://bristle-sideways-blob.glitch.me/reset', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -495,7 +495,7 @@ async function resetPassword() {
 
         if (response.ok) {
             alert('Password reset successful');
-            document.getElementById('passwordResetForm').reset(); // Reset form fields
+            document.getElementById('passwordResetFor m').reset(); // Reset form fields
         } else {
             const errorMessage = await response.text();
             alert('Password reset failed: ' + errorMessage);
